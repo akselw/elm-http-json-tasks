@@ -10,7 +10,8 @@ import Http
 
 
 type alias Model =
-    { response : Maybe (Http.Response ()) }
+    { response : Maybe (Result Http.Error ())
+    }
 
 
 
