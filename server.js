@@ -57,7 +57,7 @@ const writeArticlesToDB = (listOfArticles, firstArticleId) => {
 
 if (!databaseExists) {
     console.log('[elm-workshop] Creating database in db.json, and writing articles to it.');
-    const articleId = shortid.generate();
+    const articleId = '1';
     const firstCommentId = shortid.generate();
     const firstAnswerId = shortid.generate();
     const articles = readArticles('articles/');
