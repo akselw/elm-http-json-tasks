@@ -1,4 +1,3 @@
 import { Elm } from './Main.elm';
-import './styles/styles.less';
 
-Elm.Main.init();
+Elm.Main.init({ node: document.getElementById("elm-app")});
