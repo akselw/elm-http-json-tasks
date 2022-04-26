@@ -31,7 +31,7 @@ const readArticles = (dirname) => {
     });
 };
 
-db.defaults({ articles: [], comments: [] })
+db.defaults({ articles: [], comments: [], employees: [] })
     .write();
 
 const writeArticleToDB = (article, id) => {
@@ -99,6 +99,40 @@ if (!databaseExists) {
             text: 'I like modifying global variables 😊'
         })
         .write();
+    db.get('employees')
+        .push({
+            id: 1,
+            navn: "Aksel",
+            mann: true,
+            senioritet: 'SENIOR',
+            prosjekt_i_september: null,
+            barn: ["Aksel Jr.", "Akseline"]
+        })
+        .push({
+            id: 2,
+            navn: "Benedicte",
+            mann: false,
+            senioritet: 'MANAGER',
+            prosjekt_i_september: { navn: "Regjeringen.no" },
+            barn: []
+        })
+        .push({
+            id: 3,
+            navn: "Constance",
+            mann: false,
+            senioritet: 'SENIOR',
+            prosjekt_i_september: { navn: "Kompani Lauritzen" },
+            barn: []
+        })
+        .push({
+            id: 4,
+            navn: "Dennis",
+            mann: true,
+            senioritet: 'KONSULENT',
+            prosjekt_i_september: null,
+            barn: ["Denise"]
+        })
+        .write();
 } else {
     console.log('[elm-workshop] Using existing database. Delete or rename db.json to start a database from scratch.');
 }
@@ -139,6 +173,12 @@ const getArticles = () => (
         })))
 );
 
+
+const getEmployees = () => (
+    db.get('employees')
+        .value()
+);
+
 const getArticle = (articleId) => (
     db
         .get('articles')
@@ -175,6 +215,10 @@ const createComment = (articleId, text, username, commentId) => {
 
 server.get('/api/articles', (req, res) => {
     res.send(getArticles());
+});
+
+server.get('/api/employees', (req, res) => {
+    res.send(getEmployees());
 });
 
 server.get('/api/article/:articleId', express.json(), (req, res) => {
